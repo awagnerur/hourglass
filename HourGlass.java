@@ -48,6 +48,27 @@ public class HourGlass {
         return true;
       }
 
+      /*
+        In the following logic, we do the followings:
+        - enter the for loop where the counter will be the lowest Integer
+          we are trying to make with the two hourglasses
+        - within the for loop, the first while is simply testing for whether
+          we have reached c (the minutes we are trying to make). We set the
+          variable reachedC to true when we did, resulting the for loop to
+          proceed to the next number
+        - if within the while loop we can make the desired number (counter)
+          we return true breaking both loops
+        - in the meantime, we keep track of the counters for both a and b,
+          so we know what combination we've tried. It's important, because
+          we don't increase one after the other, we need to only increase the
+          one that is currently resulting in a lower number:
+          (counterA * a > counterB * b)
+        - the method "findCounterBeforeTimeToReach" is the key
+        - key number pairs to test flaws with: 4-7-9 and 7-11-15. For example,
+          with 7-11-15 the simple GCD would give false positive, because we
+          can't make that happen from the beginning
+      */
+
       for (int counter = 1; counter < (b - a) + 1; counter++) {
         int counterA = 1;
         int counterB = 1;
@@ -60,7 +81,7 @@ public class HourGlass {
           if (counterB * b - counterA * a == counter) {
             if (
               findCounterBeforeTimeToReach(
-                a, b, c, counter, counterA, counterB, counter, doDebug)) {
+                b, a, c, counter, counterB, counterA, counter, doDebug)) {
 
               return true;
             }
@@ -90,7 +111,9 @@ public class HourGlass {
         int innerCounter, Boolean doDebug) {
 
       while ((counterA * a + innerCounter) < (c + 1) ) {
-        if ((counterA * a + innerCounter) % c == 0) {
+        int remainder = (counterA * a + innerCounter) % c;
+        if (remainder == 0 || remainder == a || remainder == b ||
+            remainder == a - innerCounter || remainder == b - innerCounter) {
           if (doDebug) {
             doDebug(a, b, c, counter, counterA, counterB, innerCounter);
           }
