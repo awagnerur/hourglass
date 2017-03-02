@@ -60,7 +60,7 @@ public class HourGlass {
           if (counterB * b - counterA * a == counter) {
             if (
               findCounterBeforeTimeToReach(
-                a, b, c, counter, counterA, counterB, counter, doDebug)) {
+                b, a, c, counter, counterB, counterA, counter, doDebug)) {
 
               return true;
             }
@@ -90,10 +90,10 @@ public class HourGlass {
         int innerCounter, Boolean doDebug) {
 
       while ((counterA * a + innerCounter) < (c + 1) ) {
+        if (doDebug) {
+          doDebug(a, b, c, counter, counterA, counterB, innerCounter);
+        }
         if ((counterA * a + innerCounter) % c == 0) {
-          if (doDebug) {
-            doDebug(a, b, c, counter, counterA, counterB, innerCounter);
-          }
 
           return true;
         }
