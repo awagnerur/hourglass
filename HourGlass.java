@@ -112,11 +112,11 @@ public class HourGlass {
 
       while ((counterA * a + innerCounter) < (c + 1) ) {
         int remainder = (counterA * a + innerCounter) % c;
+        if (doDebug) {
+          doDebug(a, b, c, counter, counterA, counterB, innerCounter);
+        }
         if (remainder == 0 || remainder == a || remainder == b ||
             remainder == a - innerCounter || remainder == b - innerCounter) {
-          if (doDebug) {
-            doDebug(a, b, c, counter, counterA, counterB, innerCounter);
-          }
 
           return true;
         }
