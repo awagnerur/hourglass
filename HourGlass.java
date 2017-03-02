@@ -64,12 +64,15 @@ public class HourGlass {
           one that is currently resulting in a lower number:
           (counterA * a > counterB * b)
         - the method "findCounterBeforeTimeToReach" is the key
-        - key number pairs to test flaws with: 4-7-9 and 7-11-15. For example,
-          with 7-11-15 the simple GCD would give false positive, because we
-          can't make that happen from the beginning
+        - key number pairs to test flaws with: 4-7-9 and 7-11-15, 5-8-11.
+          For example, with 7-11-15 the simple GCD would give false positive,
+          because we can't make that happen from the beginning
+        - for testing: 13-17-35 should be possible but my algorithm wouldn't
+          find it
       */
 
-      for (int counter = 1; counter < (b - a) + 1; counter++) {
+      for (int counter = 1; counter < (b) + 1; counter++) {
+        System.out.println("in the for loop with counter being " + counter);
         int counterA = 1;
         int counterB = 1;
         Boolean reachedC = false;
@@ -110,18 +113,27 @@ public class HourGlass {
       int a, int b, int c, int counter, int counterA, int counterB,
         int innerCounter, Boolean doDebug) {
 
-      while ((counterA * a + innerCounter) < (c + 1) ) {
-        int remainder = (counterA * a + innerCounter) % c;
-        if (doDebug) {
-          doDebug(a, b, c, counter, counterA, counterB, innerCounter);
-        }
-        if (remainder == 0 || remainder == a || remainder == b ||
-            remainder == a - innerCounter || remainder == b - innerCounter) {
+      System.out.println("-- c - (counterB * b) % innerCounter = " + (c - (counterB * b)) % innerCounter);
 
-          return true;
-        }
-        innerCounter = innerCounter + counter;
+      if (doDebug) {
+        doDebug(a, b, c, counter, counterA, counterB, innerCounter);
       }
+
+      if ((c - (counterB * b)) % innerCounter == 0) {
+        //System.out.println("why are we not here???");
+        return true;
+      }
+
+      // while ((counterA * a + innerCounter) < (c + 1) ) {
+      //   int remainder = (counterA * a + innerCounter) % c;
+      //   //System.out.println("remainder from (counterA * a + innerCounter) % c: " + remainder);
+      //   if (remainder == 0 || remainder == a || remainder == b ||
+      //       remainder == a - innerCounter || remainder == b - innerCounter) {
+      //
+      //     return true;
+      //   }
+      //   innerCounter = innerCounter + counter;
+      // }
 
       return false;
     }
