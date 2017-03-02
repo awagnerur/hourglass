@@ -1,0 +1,8 @@
+Notes:
+
+1. This algorithm might fail in specific cases, where the difference between
+   a and b or any combination of a, b and the innerCounter would result in
+   reaching c but simply multiplying the counter would not. Trying to find
+   relevant number pairs. Committed to a new branch for testing (test1).
+2. Fixed bug where I forgot to switch the parameters I'm passing in to
+   the method findCounterBeforeTimeToReach.
